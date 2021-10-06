@@ -21,7 +21,7 @@
   "homepage": "https://github.com/Crawlo/graphql#readme",
   "dependencies": {
     "@crawlo/entity": "^1.0.0",
-    "apollo-server-express": "^1.4.0",
+    "apollo-server-express": ">=2.14.2",
     "body-parser": "^1.18.3",
     "case": "^1.5.5",
     "compression": "^1.7.3",
