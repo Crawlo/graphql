@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Crawlo/crawlo-graphql.git"
+    "url": "git+https://github.com/Crawlo/graphql.git"
   },
   "keywords": [
     "graphql"
@@ -16,9 +16,9 @@
   "author": "Crawlo <hello@crawlo.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Crawlo/crawlo-graphql/issues"
+    "url": "https://github.com/Crawlo/graphql/issues"
   },
-  "homepage": "https://github.com/Crawlo/crawlo-graphql#readme",
+  "homepage": "https://github.com/Crawlo/graphql#readme",
   "dependencies": {
     "@crawlo/entity": "^1.0.0",
     "apollo-server-express": "^1.4.0",
