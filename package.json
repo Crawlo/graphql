@@ -1,6 +1,6 @@
 {
   "name": "@crawlo/graphql",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Some tooling for GraphQL",
   "main": "index.js",
   "scripts": {
@@ -37,7 +37,9 @@
     "plural": "^1.1.0",
     "recursive-readdir-sync": "^1.0.6",
     "subscriptions-transport-ws": "^0.9.15",
-    "ws": "^5.2.2"
+    "ws": "^5.2.2",
+    "@oudyworks/drivers": "^1.0.33",
+    "@oudyworks/entity": "^1.1.24"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
