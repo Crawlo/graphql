@@ -1,25 +1,22 @@
 import {
-    GraphQLInputObjectType,
     GraphQLObjectType,
     GraphQLList,
     GraphQLScalarType,
     GraphQLEnumType,
     GraphQLUnionType,
-    GraphQLID
+    GraphQLString
 } from './'
 import getConfig from './getConfig'
-import Scalar from './Scalar'
 
 /**
- * get an GraphQLInputObjectType from GraphQLObjectType
+ * get an ErrorType from GraphQLObjectType
  * @param {(GraphQLObjectType|GraphQLList|GraphQLScalarType|GraphQLEnumType|GraphQLUnionType)} ObjectType Type to convert
- * @param {Boolean} deep
- * @returns Input type
+ * @returns Error type
  */
-export default function getInputObjectType(ObjectType, deep = false) {
+export default function getErrorType(ObjectType, moreFields = {}, deep = false) {
 
-    if(!deep && ObjectType._typeInput)
-        return ObjectType._typeInput
+    if(!deep && ObjectType._typeError)
+        return ObjectType._typeError
 
     switch (ObjectType.constructor.name) {
 
@@ -28,35 +25,35 @@ export default function getInputObjectType(ObjectType, deep = false) {
             let _fields = getConfig(ObjectType)
 
             if(deep && _fields.id && !ObjectType.entityLess)
-                return GraphQLID
+                return GraphQLString
 
-            return ObjectType._typeInput || (ObjectType._typeInput = new GraphQLInputObjectType({
-                name: `${ObjectType.name}Input`,
+            return ObjectType._typeError || (ObjectType._typeError = new GraphQLObjectType({
+                name: `${ObjectType.name}Error`,
                 fields() {
                     let fields = {}
                     Object.keys(_fields).forEach(
                         key =>
                             fields[key] = {
-                                type: getInputObjectType(_fields[key].type, true)
+                                type: getErrorType(_fields[key].type, moreFields[key] || {}, true)
                             }
                     )
-                    return fields
+                    return Object.assign(
+                        fields,
+                        moreFields
+                    )
                 }
             }))
 
         case 'GraphQLScalarType':
         case 'GraphQLEnumType':
-
-            return ObjectType
-
         case 'GraphQLUnionType':
 
-            return Scalar
+            return GraphQLString
 
         case 'GraphQLList':
     
             return new GraphQLList(
-                getInputObjectType(ObjectType.ofType, true)
+                getErrorType(ObjectType.ofType, moreFields, true)
             )
 
     }

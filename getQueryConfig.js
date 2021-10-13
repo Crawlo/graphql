@@ -1,24 +1,30 @@
 import {
-  GraphQLNonNull,
-  GraphQLID
-} from 'graphql'
-import {
-  key
-} from './key'
+    GraphQLObjectType,
+    GraphQLNonNull,
+    GraphQLID,
+    key
+} from './'
 
-export function getQueryConfig(Type, resolve, options = { args: {} }) {
-  return {
-    [key(Type.name)]: {
-      type: Type,
-      args: Object.assign(
-        {
-          id: {
-            type: new GraphQLNonNull(GraphQLID)
-          }
-        },
-        options.args || {}
-      ),
-      resolve
+/**
+ * 
+ * @param {GraphQLObjectType} ObjectType 
+ * @param {Function} resolve resolve function
+ * @param {Object} options Options
+ * @param {Object} options.args more argements to append to args
+ */
+export default function getQueryConfig(ObjectType, resolve, options = {args: {}}) {
+    return {
+        [key(ObjectType.name)] : {
+            type: ObjectType,
+            args: Object.assign(
+                {
+                    id: {
+                        type: new GraphQLNonNull(GraphQLID)
+                    }
+                },
+                options.args || {}
+            ),
+            resolve
+        }
     }
-  }
 }
